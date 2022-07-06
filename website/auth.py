@@ -40,3 +40,11 @@ def signup():
             # adds user info to database
             pass
     return render_template("sign_up.html")
+
+            pass
+        elif len(password1) < 7:
+            pass
+        else:
+            # adds user info to database
+            pass
+    return render_template("sign_up.html")
