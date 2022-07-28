@@ -1,4 +1,8 @@
-from flask import Blueprint, render_template, request, flash
+# all imports are here
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from .models import User
+from werkzeug.security import generate_password_hash, check_password_hash
+from . import db
 
 auth = Blueprint('auth', __name__)
 
@@ -30,18 +34,25 @@ def signup():
         password2 = request.form.get('password2')
 
         if len(email) < 4:
-            flash('Email must be greater than 4 characters!', category='try again')
+            flash('Sorry, that is invalid!', category='try again')
         elif len(firstName) < 2:
-            flash('First name must be greater than 1 character!', category='try again')
+            flash('Sorry, that is invalid!', category='try again')
         elif password1 != password2:
             flash('Passwords don\'t match!', category='try again')
         elif len(password1) < 7:
-            flash('Password must be at least 7 characters!', category='try again')
+            flash('Sorry, that is invalid', category='try again')
         else:
+            # this part creates the account
+            new_user = User(email=email, firstName=firstName, password=generate_password_hash(
+                password1, method='sha256'))
+            db.session.add(new_user)
+            db.session.commit()
             # adds user info to database
-            flash('Details saved', category='success.')
+            flash('Details saved', category='Success!')
+            return redirect(url_for('views.home'))
     return render_template("sign_up.html")
 
+# route for the about page
 @auth.route('/about')
 def about():
     return render_template("about.html")
