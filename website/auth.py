@@ -33,8 +33,10 @@ def login_page():
 
 
 @auth.route('/logout')
+@login_required
 def logout():
-    return "<p>logout</p>"
+    logout_user
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
@@ -63,6 +65,7 @@ def signup():
                 password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
+            login_user(user, remember=True)
             # adds user info to database
             flash('Details saved', category='Success!')
             return redirect(url_for('views.home'))
