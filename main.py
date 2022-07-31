@@ -1,9 +1,8 @@
-# imports
-from flask import render_template
+# this file allows the full code to run
+
 from website import app_creation
 
 app = app_creation()
 
-# this allows to run the flask file directly
 if __name__ == '__main__':
     app.run(debug=True)
