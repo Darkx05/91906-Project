@@ -73,4 +73,9 @@ def sign_up():
 # route for the about page
 @auth.route('/about')
 def about():
-    return render_template("about.html")
+    return render_template("about.html", user=current_user)
+
+# route for support page
+@auth.route('/support')
+def support():
+    return render_template("support.html", user=current_user)
