@@ -1,0 +1,2 @@
+\HTML FILES ARE HERE/
+/ base.html is the template layout that all other pages carry \
