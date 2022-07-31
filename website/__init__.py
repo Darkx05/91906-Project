@@ -1,4 +1,3 @@
-# modules imported
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
@@ -6,15 +5,12 @@ from flask_login import LoginManager
 # database setup
 db = SQLAlchemy()
 DB_NAME = "database.db"
-# all functions go here
 
-
+# this 
 def app_creation():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'string'
-    # this stores the database in the website folder
+    app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    # these signify the different routes from the view file
     db.init_app(app)
 
     from .views import views
@@ -25,9 +21,10 @@ def app_creation():
 
     from .models import User, Note
 
-    database_create(app)
+    create_database(app)
+
     login_manager = LoginManager()
-    login_manager.login_view = 'auth.login_page'
+    login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
     @login_manager.user_loader
@@ -35,8 +32,9 @@ def app_creation():
         return User.query.get(int(id))
 
     return app
-# this function creates the database itself
-def database_create(app):
+
+# this def creates the real database
+def create_database(app):
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
         print('Created Database!')
