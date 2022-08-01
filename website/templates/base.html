@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CSS external sources -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -28,13 +29,18 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+      <!-- The Navbar is only appearing as a collapse if the website is being run
+      and the window is minimised -->
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
+          <!-- if user is logged in these sites show on the navbar -->
           {% if user.is_authenticated %}
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
           <a class="nav-item nav-link" id="About" href="/about">About</a>
+          <a class="nav-item nav-link" id="About" href="/support">Support</a>
           {% else %}
+          <!-- Under signout conditions these sites on the navbar show -->
           <a class="nav-item nav-link" id="login" href="/login">Login</a>
           <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
           <a class="nav-item nav-link" id="About" href="/about">About</a>
@@ -76,7 +82,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-
+<!-- Import JSON File -->
     <script
       type="text/javascript"
       src="{{ url_for('static', filename='index.js') }}"
