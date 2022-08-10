@@ -9,6 +9,8 @@ views = Blueprint('views', __name__)
 
 # the route below allows the note box
 # to actually record text.
+
+
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -17,7 +19,7 @@ def home():
         # exception handling that text must be
         # entered in order for notes to work
         if len(note) < 1:
-            flash('Note is too short!', category='error')
+            flash('You put nothing! try again!', category='error')
         else:
             new_note = Note(data=note, user_id=current_user.id)
             db.session.add(new_note)
@@ -29,6 +31,8 @@ def home():
 
 # this route is for when notes
 # are removed
+
+
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
     note = json.loads(request.data)
