@@ -1,7 +1,12 @@
+<!DOCTYPE html>
 {% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
-    %}
+  %}
+  <html lang="en">
+    <body>
     <form method="POST">
-      <h3 align ="center">Login</h3>
+      <h3 style="text-align: center">Login</h3>
+      <p style="text-align:left"> Hi! By now you will have signed up by now.
+      So please login to access the site.</p>
       <div class="form-group">
         <label for="email">Email Address</label>
         <input
@@ -39,4 +44,7 @@
       
       <div class="footer">
         <p>@ltd 2022</p>
-    {% endblock %}
+        </div>
+    </body>
+  </html>
+  {% endblock %}
