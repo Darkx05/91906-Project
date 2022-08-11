@@ -2,11 +2,15 @@
 {% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
     content %}
     <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>Sign Up</title>
+      </head>
       <body>
       <form method="POST">
         <h3 style="text-align:center">Sign Up</h3>
         <p style="text-align:left"> As this website is specific to people who are 
-        willing to help. So please sign in via the form below.</p>
+        willing to understand the real situation of the people suffering from hunger.</p>
         <!-- Like the login page this is layed out in iterable boxes -->
         <div class="form-group">
           <label for="email">Email Address</label>
@@ -68,4 +72,4 @@
           </div>
       </body>
     </html>
-      {% endblock %}
+    {% endblock %}
