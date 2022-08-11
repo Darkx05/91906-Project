@@ -1,17 +1,37 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
 {%extends "base.html" %}{% block title %} About{% endblock %}
 {% block content %}
 <html lang="en">
+  <head>
+    <title>About</title>
+  </head>
   <body>
-    <h1 style="text-align:left;">About Us</h1>
-<p style="text-align:left;">As many as 828 million people were affected by hunger in 2021 – 46 million people more from a year earlier and 150 million more from 2019.
+  <h1 style="text-align:center;">About Us</h1>
+<p style="text-align:justify;">As many as 828 million people were affected by hunger in 2021 – 46 million people more from a year earlier and 150 million more from 2019.
   After remaining relatively unchanged since 2015, the proportion of people affected by hunger jumped in 2020 and continued to rise in 2021, to 9.8 percent of the world population. This compares with 8 percent in 2019 and 9.3 percent in 2020.
   Around 2.3 billion people in the world (29.3 percent) were moderately or severely food insecure in 2021 – 350 million more compared to before the outbreak of the pandemic. Nearly 924 million people faced food insecurity at severe levels, 
   an increase of 207 million in two years.The gender gap in food insecurity continued to rise in 2021 - 31.9 percent of women in the world were moderately or severely food insecure, compared to 27.6 percent of men – a gap of more than 4 percentage points, compared with 3 percentage points in 2020.
-  Almost 3.1 billion people could not afford a healthy diet in 2020, up 112 million from 2019, reflecting the effects of inflation in consumer food prices stemming from the economic impacts of the COVID-19 pandemic and the measures put in place to contain it. 
-  An estimated 45 million children under the age of five were suffering from wasting, the deadliest form of malnutrition, which increases children’s risk of death by up to 12 times. Another 149 million 
-  children under the age of five had stunted growth and development due to a chronic lack of essential nutrients in their diets, 
-  while 39 million were overweight.</p>
+  Want to keep personal notes? Enter them Below. You can remove them at anytime.</p>
+  <h3 style="text-align:center">Notes</h3>
+  <ul class="list-group list-group-flush" id="notes">
+    {% for note in user.notes %}
+    <!-- The code here is for the notes box -->
+    <li class="list-group-item">
+      {{ note.data }}
+      <button type="button" class="close" onClick="deleteNote({ note,id })">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </li>
+    {% endfor %}
+  </ul>
+  <form method="POST">
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br />
+    <div style="text-align:center">
+      <button type="submit" class="btn btn-primary">Add Note</button>
+    </div>
+  </form>
 <style>
     .footer {
       position: fixed;
@@ -22,11 +42,11 @@
       color: white;
       text-align: center;
     }
-    </style>
+</style>
     
-    <div class="footer">
-      <p> Global Hunger Support @ltd 2022</p>
-    </div>
-  </body>
+<div class="footer">
+  <p>@ltd 2022</p>
+</div>
+</body>
 </html>
 {% endblock %}
