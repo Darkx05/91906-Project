@@ -2,8 +2,13 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
   %}
   <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Home</title>
+    </head>
   <body>
-    <h1>Global Hunger Support</h1>
+    <h4 style="text-align:center">Let Us All Unite To Overcome Global Hunger
+    <h6 style="text-align:center">(Click on the images below to find more details)</h6></h4>
   
   <!-- Slideshow container -->
   <div class="slideshow-container">
@@ -11,19 +16,25 @@
     <!-- IMAGE SLIDESHOW CODE IS HERE -->
     <div class="mySlides fade">
       <div class="numbertext">1 / 3</div>
+      <a href="https://www.indiatvnews.com/news/india/global-hunger-index-india-slips-101-rank-behind-pakistan-bangladesh-nepal-latest-updates-740381">
       <img src="static/hunger1.jpg" style="width: 100%" alt="hunger1">
+      </a>
       <div class="text"></div>
     </div>
   
     <div class="mySlides fade">
       <div class="numbertext">2 / 3</div>
+      <a href="https://www.nytimes.com/2021/08/06/world/africa/covid-19-global-hunger.html">
       <img src="static/hunger2.jpg" style="width:100%" alt="hunger2">
+      </a>
       <div class="text"></div>
     </div>
   
     <div class="mySlides fade">
       <div class="numbertext">3 / 3</div>
+      <a href="https://english.alarabiya.net/features/2022/07/07/-Depressing-figures-for-humanity-UN-report-reveals-worsening-state-of-global-hunger">
       <img src="static/hunger3.jpg" style="width:100%" alt-="hunger3">
+      </a>
       <div class="text"></div>
     </div>
   
@@ -79,7 +90,7 @@
   
   /* On hover, add a black background color with a little bit see-through */
   .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0, 0, 0, 0.8);
   }
   
   /* Caption text */
@@ -121,7 +132,7 @@
   /* Fading animation */
   .fade {
     animation-name: fade;
-    animation-duration: 1s;
+    animation-duration: 3.5s;
   }
   
   @keyframes fade {
@@ -146,52 +157,47 @@ showSlides(slideIndex);
 
 // Next/previous controls
 function plusSlides(n) {
-showSlides(slideIndex += n);
+  showSlides(slideIndex += n);
 }
 
 // Thumbnail image controls
 function currentSlide(n) {
-showSlides(slideIndex = n);
+  showSlides(slideIndex = n);
 }
 
 function showSlides(n) {
-let i;
-let slides = document.getElementsByClassName("mySlides");
-let dots = document.getElementsByClassName("dot");
-if (n > slides.length) {slideIndex = 1}
-if (n < 1) {slideIndex = slides.length}
-for (i = 0; i < slides.length; i++) {
-  slides[i].style.display = "none";
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
 }
-for (i = 0; i < dots.length; i++) {
-  dots[i].className = dots[i].className.replace(" active", "");
-}
-slides[slideIndex-1].style.display = "block";
-dots[slideIndex-1].className += " active";
+// This section makes the slideshow automatic \\
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 3500); // Change image every 2 seconds
 }
   </script>
       <div class="footer">
         <p>@ltd 2022</p>
       </div>
-  <h1 style="text-align:center">Notes</h1>
-  <ul class="list-group list-group-flush" id="notes">
-    {% for note in user.notes %}
-    <!-- The code here is for the notes box -->
-    <li class="list-group-item">
-      {{ note.data }}
-      <button type="button" class="close" onClick="deleteNote({ note,id })">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </li>
-    {% endfor %}
-  </ul>
-  <form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
-    <br />
-    <div style="text-align:center">
-      <button type="submit" class="btn btn-primary">Add Note</button>
-    </div>
-  </form>
   </body>
   </html>
   {% endblock %}
