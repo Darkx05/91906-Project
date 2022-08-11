@@ -1,14 +1,16 @@
 # imports
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
-
-
+from .models import Note
+import json
 auth = Blueprint('auth', __name__)
 
 # auth login page route
+
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -39,7 +41,7 @@ def logout():
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
-        #variables required 
+        # variables required
         email = request.form.get('email')
         first_name = request.form.get('firstName')
         password1 = request.form.get('password1')
@@ -52,30 +54,62 @@ def sign_up():
             flash('Email already exists.', category='error')
         # exception handling in form
         elif len(email) < 4:
-            flash('Email must be greater than 3 characters.', category='error')
+            flash('Sorry, that is invalid!', category='error')
         elif len(first_name) < 2:
-            flash('First name must be greater than 1 character.', category='error')
+            flash('Sorry, that is invalid!', category='error')
         elif password1 != password2:
-            flash('Passwords don\'t match.', category='error')
+            flash('Sorry, they need to match!', category='error')
         elif len(password1) < 7:
-            flash('Password must be at least 7 characters.', category='error')
+            flash('Sorry, that is invalid!', category='error')
         else:
             new_user = User(email=email, first_name=first_name, 
             password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(new_user, remember=True)
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)
 
 # route for the about page
-@auth.route('/about')
+
+
+@auth.route('/about', methods=['GET', 'POST'])
+@login_required
 def about():
+    if request.method == 'POST':
+        note = request.form.get('note')
+        # exception handling that text must be
+        # entered in order for notes to work
+        if len(note) < 1:
+            flash('You put nothing! try again!', category='error')
+        else:
+            new_note = Note(data=note, user_id=current_user.id)
+            db.session.add(new_note)
+            db.session.commit()
+            # message shown when a note is added
+            flash('Note added!', category='success')
+
     return render_template("about.html", user=current_user)
 
+
+@auth.route('/delete-note', methods=['POST'])
+def delete_note():
+    note = json.loads(request.data)
+    noteId = note['noteId']
+    note = Note.query.get(noteId)
+    if note:
+        if note.user_id == current_user.id:
+            db.session.delete(note)
+            db.session.commit()
+
+    return jsonify({})
+
+
+
 # route for support page
+
+
 @auth.route('/support')
 def support():
     return render_template("support.html", user=current_user)
