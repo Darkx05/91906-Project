@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- CSS external sources -->
+    <!-- CSS external import links -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -18,8 +18,40 @@
 
     <title>{% block title %}Home{% endblock %}</title>
   </head>
-  <body style="background-color:rgb(44, 167, 73);">
-    <img src="static/banner.jpg" width=1600 height=95 alt="nature">
+  <body style="background-color:#b1eaff;">
+  <!-- Row Of Images For Banner -->
+  <div class="row">
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="banners" height="50%" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="banners" height="50%" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="banners" height="50%" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
+    </div>
+  </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button
         class="navbar-toggler"
@@ -41,8 +73,8 @@
           <a class="nav-item nav-link" id="About" href="/support">Support</a>
           {% else %}
           <!-- Under signout conditions these sites on the navbar show -->
-          <a class="nav-item nav-link" id="login" href="/login">Login</a>
           <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+          <a class="nav-item nav-link" id="login" href="/login">Login</a>
           <a class="nav-item nav-link" id="About" href="/about">About</a>
           {% endif %}
         </div>
@@ -67,6 +99,22 @@
     {% endif %} {% endfor %} {% endif %} {% endwith %}
 
     <div class="container">{% block content %} {% endblock %}</div>
+    <style>
+      /* Three image containers (use 25% for four, and 50% for two, etc) */
+      .column {
+        float: left;
+        width: 10%;
+        padding: 0px;
+        height: 50%;
+      }
+      
+      /* Clear floats after image containers */
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+          </style>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
