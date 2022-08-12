@@ -1,139 +1,52 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
+{%extends "base.html" %}{% block title %} About{% endblock %}
+{% block content %}
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- CSS external import links -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      crossorigin="anonymous"
-    />
-
-    <title>{% block title %}Home{% endblock %}</title>
+    <title>About</title>
   </head>
-  <body style="background-color:#b1eaff;">
-  <!-- Row Of Images For Banner -->
-  <div class="row">
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="banners" height="50%" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="banners" height="50%" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="banners" height="50%" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="static/GlobalHunger1.jpg" alt="hungerbanner" height="50%" style="width:100%">
-    </div>
-  </div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- The Navbar is only appearing as a collapse if the website is being run
-      and the window is minimised -->
-      <div class="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-          <!-- if user is logged in these sites show on the navbar -->
-          {% if user.is_authenticated %}
-          <a class="nav-item nav-link" id="home" href="/">Home</a>
-          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          <a class="nav-item nav-link" id="About" href="/about">About</a>
-          <a class="nav-item nav-link" id="About" href="/support">Support</a>
-          {% else %}
-          <!-- Under signout conditions these sites on the navbar show -->
-          <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-          <a class="nav-item nav-link" id="login" href="/login">Login</a>
-          <a class="nav-item nav-link" id="About" href="/about">About</a>
-          {% endif %}
-        </div>
-      </div>
-    </nav>
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %} {% for category, message in messages %} {% if category ==
-    'error' %}
-    <div class="alert alert-danger alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
+  <body>
+  <h1 style="text-align:center;">About Us</h1>
+<p style="text-align:justify;">As many as 828 million people were affected by hunger in 2021 – 46 million people more from a year earlier and 150 million more from 2019.
+  After remaining relatively unchanged since 2015, the proportion of people affected by hunger jumped in 2020 and continued to rise in 2021, to 9.8 percent of the world population. This compares with 8 percent in 2019 and 9.3 percent in 2020.
+  Around 2.3 billion people in the world (29.3 percent) were moderately or severely food insecure in 2021 – 350 million more compared to before the outbreak of the pandemic. Nearly 924 million people faced food insecurity at severe levels, 
+  an increase of 207 million in two years.The gender gap in food insecurity continued to rise in 2021 - 31.9 percent of women in the world were moderately or severely food insecure, compared to 27.6 percent of men – a gap of more than 4 percentage points, compared with 3 percentage points in 2020.
+  Want to keep personal notes? Enter them Below. You can remove them at anytime.</p>
+  <h3 style="text-align:center">Notes</h3>
+  <ul class="list-group list-group-flush" id="notes">
+    {% for note in user.notes %}
+    <!-- The code here is for the notes box -->
+    <li class="list-group-item">
+      {{ note.data }}
+      <button type="button" class="close" onClick="deleteNote({ note,id })">
         <span aria-hidden="true">&times;</span>
       </button>
+    </li>
+    {% endfor %}
+  </ul>
+  <form method="POST">
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br />
+    <div style="text-align:center">
+      <button type="submit" class="btn btn-primary">Add Note</button>
     </div>
-    {% else %}
-    <div class="alert alert-success alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endif %} {% endfor %} {% endif %} {% endwith %}
-
-    <div class="container">{% block content %} {% endblock %}</div>
-    <style>
-      /* Three image containers (use 25% for four, and 50% for two, etc) */
-      .column {
-        float: left;
-        width: 10%;
-        padding: 0px;
-        height: 50%;
-      }
-      
-      /* Clear floats after image containers */
-      .row::after {
-        content: "";
-        clear: both;
-        display: table;
-      }
-          </style>
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-<!-- Import JSON File -->
-    <script
-      type="text/javascript"
-      src="{{ url_for('static', filename='index.js') }}"
-    ></script>
-  </body>
+  </form>
+<style>
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: black;
+      color: white;
+      text-align: center;
+    }
+</style>
+    
+<div class="footer">
+  <p>@ltd 2022</p>
+</div>
+</body>
 </html>
+{% endblock %}
