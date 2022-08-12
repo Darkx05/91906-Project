@@ -10,8 +10,7 @@ class Note(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-# database structure column for
-# signups
+# database structure column for signups
 
 
 class User(db.Model, UserMixin):
