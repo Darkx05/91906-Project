@@ -30,12 +30,18 @@ def login():
 
     return render_template("login.html", user=current_user)
 
+# This route logs out the user though its not
+# a page just a sign out
+
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
+
+# full sign up route
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
@@ -62,8 +68,9 @@ def sign_up():
         elif len(password1) < 7:
             flash('Sorry, that is invalid!', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, 
-            password=generate_password_hash(password1, method='sha256'))
+            # cant shorten this new user defined line
+            # because I cant put visual indention inside brackets
+            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             flash('Account created!', category='success')
@@ -72,6 +79,7 @@ def sign_up():
     return render_template("sign_up.html", user=current_user)
 
 # route for the about page
+# function below also for note add/remove
 
 
 @auth.route('/about', methods=['GET', 'POST'])
@@ -104,7 +112,6 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
-
 
 
 # route for support page
